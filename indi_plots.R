@@ -1,6 +1,4 @@
-#100 types Individual proportion
-library(reshape2)
-library(ggrepel)
+
 library(rBeta2009) #for rbeta
 library(ggplot2)
 library(ggthemes)
