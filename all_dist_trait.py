@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon May  2 16:34:46 2022
 
-@author: tanveen
-"""
 import numpy as np
 import pandas as pd
 import time
@@ -15,16 +11,14 @@ from scipy.stats import beta, uniform
 import getopt
 import sys
 
-
 ''' Code Segment 1 (CS1)
-If you want to set the varying trait, trait distribution, level
-of variation and sapling birth rate (beta) while running the script in terminal, 
-keep the following lines of code till the end of Code Segment 1 (CS1).
+If you want to set the varying trait, trait distribution and level
+of variation while running the script in terminal, keep the following
+lines of code till the end of Code Segment 1 (CS1).
 For running the code through terminal, give the following command:
-python indi_prop_all_dist_trait.py -t (insert trait here) -d (insert distribution here) -v (insert level of variation here) -b (insert sapling birth rate here)
-Example: you want to run the code for variation in sapling death rate (u), 
-bimodal distribution, high level of variation and for beta = 0.3, use this:
-python indi_prop_all_dist_trait.py -t u -d bimod -v high -b 0.3
+python all_dist_trait.py -t (insert trait here) -d (insert distribution here) -v (insert level of variation here)
+Example: you want to run the code for variation in sapling death rate (u), bimodal distribution and high level of variation, use this:
+python all_dist_trait.py -t u -d bimod -v high
 Check CS2 for acceptable values for each of these.
 
 Remove or comment the segment you don't want to use'''
@@ -34,7 +28,7 @@ all_args = sys.argv[1:]
 
 try:
    # Gather the arguments
-   opts, args = getopt.getopt(all_args, 't:d:v:b:')
+   opts, args = getopt.getopt(all_args, 't:d:v:')
 except:
         print("Error")
         
@@ -48,8 +42,6 @@ for opt, arg in opts:
         dist = str(arg)
     elif opt in ['-v']:
         var = str(arg)
-    elif opt in ['-b']:
-        b = float(arg)
 
 '''CS1 ends here. If you don't wish to run the code like this, go to CS2'''
 
@@ -88,82 +80,91 @@ def crange(*args, **kwargs):
     return cust_range(*args, **kwargs, include=[True, True])
 
 # simulating ODEs for variation in sapling death rate (mu)
-# This function returns the proportion of each tree and sapling type at steady-state
 @njit(fastmath=False)
-def props_u(g):
-    global n_types, timesteps, u, v, dt, th, b, p
-    G0 = g
-    S0 = T0 = (1-G0)/2
-    Si = S0*p
-    Ti = T0*p 
-  
-    for t in range(0,timesteps):
-          death = u*Si
-          G_t= G0 + (np.sum(death) + v*np.sum(Ti) - G0*b*np.sum(Ti))*dt
-          for i in range(0,n_types):
-              s = Si[i]
-              Si[i] += (b*G0*Ti[i] - (0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - u[i]*s)*dt;
-              Ti[i] += ((0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - v*Ti[i])*dt; 
-          G0 = G_t
-          S0 = np.sum(Si)
-          T0 = np.sum(Ti)
+def iterations_u(b):
+  global Gseq, n_types, timesteps, u, v, dt, th, p
+  l=np.zeros((len(Gseq),2))
+  for g0 in range(len(Gseq)): 
 
-    return Si, Ti 
+          G0 = Gseq[g0]
+          S0 = T0 = (1-G0)/2
+          Si = S0*p
+          Ti = T0*p 
+          
+          for t in range(0,timesteps):
+                death = u*Si
+                G_t= G0 + (np.sum(death) + v*np.sum(Ti) - G0*b*np.sum(Ti))*dt
+                for i in range(0,n_types):
+                    s = Si[i]
+                    Si[i] += (b*G0*Ti[i] - (0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - u[i]*s)*dt;
+                    Ti[i] += ((0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - v*Ti[i])*dt; 
+                G0 = G_t
+                T0 = np.sum(Ti)
+          l[g0]=G0, T0
+  return l 
 
 # simulating ODEs for variation in tree death rate (nu)
-# This function returns the proportion of each tree and sapling type at steady-state
 @njit(fastmath=False)
-def props_v(g):
-    global n_types, timesteps, u, v, dt, th, b, p
-    G0 = g
-    S0 = T0 = (1-G0)/2
-    Si = S0*p
-    Ti = T0*p 
+def iterations_v(b):
+  global Gseq, n_types, timesteps, u, v, dt, th, p
+  l=np.zeros((len(Gseq),2))
+  for g0 in range(len(Gseq)): 
+
+          G0 = Gseq[g0]
+          S0 = T0 = (1-G0)/2
+          Si = S0*p
+          Ti = T0*p 
           
-    for t in range(0,timesteps):
-          G_t= G0 + (u*np.sum(Si) + np.sum(v*Ti) - G0*b*np.sum(Ti))*dt
-          for i in range(0,n_types):
-              s = Si[i]
-              Si[i] += (b*G0*Ti[i] - (0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - u*s)*dt;
-              Ti[i] += ((0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - v[i]*Ti[i])*dt; 
-          G0 = G_t
-          S0 = np.sum(Si)
-          T0 = np.sum(Ti)
-
-    return Si, Ti 
-
+          for t in range(0,timesteps):
+                G_t= G0 + (u*np.sum(Si) + np.sum(v*Ti) - G0*b*np.sum(Ti))*dt
+                for i in range(0,n_types):
+                    s = Si[i]
+                    Si[i] += (b*G0*Ti[i] - (0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - u*s)*dt;
+                    Ti[i] += ((0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*s - v[i]*Ti[i])*dt; 
+                G0 = G_t
+                T0 = np.sum(Ti)
+          l[g0]=G0, T0
+  return l 
 
 # simulating ODEs for variation in sapling resistance to fire (theta)
-# This function returns the proportion of each tree and sapling type at steady-state
 @njit(fastmath=False)
-def props_th(g):
-    global n_types, timesteps, u, v, dt, th, b, p
-    G0 = g
-    S0 = T0 = (1-G0)/2
-    Si = S0*p
-    Ti = T0*p 
-          
-    for t in range(0,timesteps):
-          G_t= G0 + (u*np.sum(Si) + v*np.sum(Ti) - G0*b*np.sum(Ti))*dt
-          for i in range(0,n_types):
-              s = Si[i]
-              Si[i] += (b*G0*Ti[i] - (0.9 + (0.05-0.9)/(1+np.exp((th[i]-G0)/0.005)))*s - u*s)*dt;
-              Ti[i] += ((0.9 + (0.05-0.9)/(1+np.exp((th[i]-G0)/0.005)))*s - v*Ti[i])*dt; 
-          G0 = G_t
-          S0 = np.sum(Si)
-          T0 = np.sum(Ti)
+def iterations_th(b):
+  global Gseq, n_types, timesteps, u, v, dt, th, p
+  l=np.zeros((len(Gseq),2))
+  for g0 in range(len(Gseq)): 
 
-    return Si, Ti 
+          G0 = Gseq[g0]
+          S0 = T0 = (1-G0)/2
+          Si = S0*p
+          Ti = T0*p 
+          
+          for t in range(0,timesteps):
+                G_t= G0 + (u*np.sum(Si) + v*np.sum(Ti) - G0*b*np.sum(Ti))*dt
+                for i in range(0,n_types):
+                    s = Si[i]
+                    Si[i] += (b*G0*Ti[i] - (0.9 + (0.05-0.9)/(1+np.exp((th[i]-G0)/0.005)))*s - u*s)*dt;
+                    Ti[i] += ((0.9 + (0.05-0.9)/(1+np.exp((th[i]-G0)/0.005)))*s - v*Ti[i])*dt; 
+                G0 = G_t
+                T0 = np.sum(Ti)
+          l[g0]=G0, T0
+  return l 
 
 Gseq = np.arange(0,1,0.1) # Initial Grass covers
 Gseq = np.round(Gseq,2)
+Bseq = crange(0,2,0.1) # Values of sapling birth rate (beta)
+Bseq = np.round(Bseq,2)
+
+# Dataframes to save the steady-state values of G and T
+df_G = pd.DataFrame({'Gi':Gseq})
+for i in Bseq:
+    df_G[i] = 0
+    
+df_T = pd.DataFrame({'Gi':Gseq})
+for i in Bseq:
+    df_T[i] = 0
 
 ''' Code Segment 2 (CS2)
 Here you can set the values in the code itself'''
-
-# Based on the bifurcation diagram, choose the value of b. This would determine
-# in which regime do you want to see the final trait distribution
-b = 0.45 # Value of sapling birth rate (beta)
 
 var_list = ["high","low"] # Levels of variation
 dist_list = ["unif","beta","bimod"] # Distribution of traits
@@ -179,7 +180,6 @@ var = var_list[0]
 ''' End of CS2 
 Comment or remove this part if using CS1'''
 
-
 n_types = 10 #Number of sapling (or tree) types, referred to as 'k' in Methods
 print('Number of types: ',n_types)
 
@@ -191,18 +191,17 @@ elif var == "low": # Range of values for the trait
     max_var = 0.7
 print("Level of variation:",var)
 
-# for choosing equidistant trait values in the given range:
+# for choosing equidistant trait values in the given range
 diff = max_var - min_var
 binsize = (diff)/(n_types)
 
-p =  np.empty(n_types)  # list with proportion of each type
+p =  np.empty(n_types) # list with proportion of each type
 sump=0
 
 # Values of the traits depending on the Level of variation and No. of types
 tr = crange(min_var+(binsize/2),max_var-(binsize/2),binsize)
 
 #Distribution tells the proportion (p) of each trait type wrt other types 
-
 if dist=="bimod":
     print('Trait values have a bimodal beta distribution')
     for i in tr:
@@ -226,15 +225,6 @@ tim = 1 # Total time over which the simulations will run
 dt = 0.1 # step size of time 
 timesteps = int(tim/dt) # total no. of timesteps
 
-# Dataframes to save the steady-state proportion of all Sapling and Tree types
-df_S = pd.DataFrame()
-df_S['trait_value'] = tr
-df_S['initial_prop'] = p
-df_T = pd.DataFrame()
-df_T['trait_value'] = tr
-df_T['initial_prop'] = p
-
-print('Sapling birth rate = ', b)
 if trait=="v":
     print('Varying trait is tree death rate')
     v = tr
@@ -245,11 +235,10 @@ if trait=="v":
     if __name__ == '__main__':
         pool = Pool() 
         start = time.time()
-        # We'll run the function props_v() over different 
-        # initial values of G in parallel using multiprocessing
-        print("Start of simulation")
-        x = pool.map(props_v, Gseq)
-        print("End of simulation")
+        # We'll run the function iterations_v() over different values of 
+        # sapling birth rate (beta) in parallel using multiprocessing
+        x = pool.map(iterations_v, Bseq) 
+        print("Complete")
         end = time.time()
         print('total time (s)= ' + str(end-start))
         
@@ -263,11 +252,10 @@ if trait=="u":
      if __name__ == '__main__':
          pool = Pool() 
          start = time.time()
-         # We'll run the function props_u() over different 
-         # initial values of G in parallel using multiprocessing
-         print("Start of simulation")
-         x = pool.map(props_u,Gseq)
-         print("End of simulation")
+         # We'll run the function iterations_u() over different values of 
+         # sapling birth rate (beta) in parallel using multiprocessing
+         x = pool.map(iterations_u, Bseq)
+         print("Complete")
          end = time.time()
          print('total time (s)= ' + str(end-start))
          
@@ -280,18 +268,18 @@ if trait=="th":
      if __name__ == '__main__':
          pool = Pool() 
          start = time.time()
-         # We'll run the function props_th() over different 
-         # initial values of G in parallel using multiprocessing
-         print("Start of simulation")
-         x = pool.map(props_th, Gseq)
-         print("End of simulation")
+         # We'll run the function iterations_th() over different values of 
+         # sapling birth rate (beta) in parallel using multiprocessing
+         x = pool.map(iterations_th, Bseq)
+         print("Complete")
          end = time.time()
          print('total time (s)= ' + str(end-start))
-
+ 
 # Saving values for the simulation to the dataframes
-for i in range(len(Gseq)):
-    df_S[i/10]=x[i][0] 
-    df_T[i/10]=x[i][1] 
-    
-df_S.to_csv('S_indi_prop_'+str(n_types)+'_types_'+str(dist)+'_dist_varying_'+str(trait)+'_'+str(var)+'_var_beta_'+str(b)+'.csv')
-df_T.to_csv('T_indi_prop_'+str(n_types)+'_types_'+str(dist)+'_dist_varying_'+str(trait)+'_'+str(var)+'_var_beta_'+str(b)+'.csv')
+for i in range(1,len(Bseq)+1):
+    for j in range(0,len(Gseq)):
+        df_G.iat[j,i] = x[i-1][j][0]
+        df_T.iat[j,i] = x[i-1][j][1]
+
+df_G.to_csv('G_'+str(n_types)+'_types_'+str(dist)+'_dist_varying_'+str(trait)+'_'+str(var)+'_var.csv')
+df_T.to_csv('T_'+str(n_types)+'_types_'+str(dist)+'_dist_varying_'+str(trait)+'_'+str(var)+'_var.csv')
