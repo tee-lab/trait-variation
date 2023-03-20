@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon May  2 16:34:46 2022
 
-@author: tanveen
-"""
 import numpy as np
 import pandas as pd
 import time
@@ -53,6 +49,7 @@ for opt, arg in opts:
 
 '''CS1 ends here. If you don't wish to run the code like this, go to CS2'''
 
+# Copied cust_range() and crange() from stack overflow
 def cust_range(*args, rtol=1e-05, atol=1e-08, include=[True, False]):
     # process arguments
     if len(args) == 1:
@@ -85,11 +82,6 @@ def cust_range(*args, rtol=1e-05, atol=1e-08, include=[True, False]):
 
 def crange(*args, **kwargs):
     return cust_range(*args, **kwargs, include=[True, True])
-
-def orange(*args, **kwargs):
-    return cust_range(*args, **kwargs, include=[True, False])
-
-print('crange(1, 1.3, 0.1) >>>', crange(1, 1.3, 0.1))
 
 # simulating ODEs for variation in sapling death rate (mu)
 # This function returns the proportion of each tree and sapling type at steady-state
@@ -162,27 +154,23 @@ def props_th(g):
 Gseq = np.arange(0,1,0.1) # Initial Grass covers
 Gseq = np.round(Gseq,2)
 
-# Dataframes to save the steady-state proportion of all Sapling and Tree types
-df_S = pd.DataFrame()
-df_T = pd.DataFrame()
-
 ''' Code Segment 2 (CS2)
 Here you can set the values in the code itself'''
 
-# # Based on the bifurcation diagram, choose the value of b. This would determine
-# # in which regime do you want to see the final trait distribution
-# b = 0.45 # Value of sapling birth rate (beta)
+# Based on the bifurcation diagram, choose the value of b. This would determine
+# in which regime do you want to see the final trait distribution
+b = 0.45 # Value of sapling birth rate (beta)
 
-# var_list = ["high","low"] # Levels of variation
-# dist_list = ["unif","beta","bimod"] # Distribution of traits
-# trait_list = ["u","v","th"] 
-# '''Trait being varied, u = sapling death rate (mu),
-# v = tree death rate (nu), th = sapling resistance to fire (theta)'''
+var_list = ["high","low"] # Levels of variation
+dist_list = ["unif","beta","bimod"] # Distribution of traits
+trait_list = ["u","v","th"] 
+'''Trait being varied, u = sapling death rate (mu),
+v = tree death rate (nu), th = sapling resistance to fire (theta)'''
 
-# #set the choice of trait to vary, distribution of traits and level of variation
-# trait = trait_list[0] # 0 refers to the first entry in the list
-# dist = dist_list[0]
-# var = var_list[0] 
+#set the choice of trait to vary, distribution of traits and level of variation
+trait = trait_list[0] # 0 refers to the first entry in the list
+dist = dist_list[0]
+var = var_list[0] 
 
 ''' End of CS2 
 Comment or remove this part if using CS1'''
@@ -233,6 +221,14 @@ if dist=="unif":
 tim = 1 # Total time over which the simulations will run
 dt = 0.1 # step size of time 
 timesteps = int(tim/dt) # total no. of timesteps
+
+# Dataframes to save the steady-state proportion of all Sapling and Tree types
+df_S = pd.DataFrame()
+df_S['trait_value'] = tr
+df_S['initial_prop'] = p
+df_T = pd.DataFrame()
+df_T['trait_value'] = tr
+df_T['initial_prop'] = p
 
 print('Sapling birth rate = ', b)
 if trait=="v":
