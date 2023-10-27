@@ -10,4 +10,6 @@ We investigate how trait variations affect savanna-woodland bistable system.
 4. Plot the data in these .csv files to obtain the population-level trait distribution at steady state using plot_indi_prop.R. This will generate Figure 3 mentioned in the manuscript.
 
 5. To see how grass, tree and sapling covers change with time for different cases of initial conditions (G,S and T), sapling birth rate (b), varying trait, trait distribution and level of variation, use the TimeSeries_all_dist_trait.py. 
-6. Plot the data in these .csv files using [INSERT FILE NAME]. This generates Figure 4 mentioned in the manuscript.
+6. Plot the data in these .csv files using plot_timeseries.R. This generates Figure 4 mentioned in the manuscript.
+
+7. To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.
