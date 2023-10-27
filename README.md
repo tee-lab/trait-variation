@@ -1,7 +1,7 @@
 # trait-variation
 
 # trait-variation
-We investigate how trait variations affect savanna-woodland bistable system. 
+We investigate how trait variations affect the dyanmics of savanna-woodland bistable system. 
 
 1. To run the model with variation in the following traits: sapling death rate (u, as referred to in the codes), tree death rate (v) and sapling resistance to fire (th), use the file all_dist_trait.py. Users can also set the initial trait distribution and level of variation using this file. This file gives the steady state grass and tree cover for a specific case of trait variation, trait distribution and level of variation for values of sapling birth rate (b) ranging from 0 to 2. Data is generated in the form of 2 .csv files, one for Grass cover and the other for Tree cover. 
 2. Plot the data in these .csv files to obtain the stability diagram and study the ecosystem-level properties. For this, use the plot_bifurcation_diag.R file. This will generate Figure 2 mentioned in the manuscript.
