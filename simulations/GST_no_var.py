@@ -53,8 +53,7 @@ def iterations_no_var(b):
           S0 = T0 = (1-G0)/2
           
           for t in range(0,timesteps):
-                G_t= G0 + (u*S0 + v*T0 - G0*b*T0)*dt
-                
+                G_t= G0 + (u*S0 + v*T0 - G0*b*T0)*dt 
                 S_t = S0+ (b*G0*T0 - (0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*S0 - u*S0)*dt;
                 T_t = T0 + ((0.9 + (0.05-0.9)/(1+np.exp((th-G0)/0.005)))*S0 - v*T0)*dt; 
                 G0 = G_t
@@ -68,7 +67,7 @@ Gseq = np.round(Gseq,2)
 Bseq = crange(0,2,0.1) # Values of sapling birth rate
 Bseq = np.round(Bseq,2)
 
-# Dataframes to save the steady-state values of G and T
+# Dataframes to save the steady-state values of Grass cover (G) and  Tree cover (T)
 df_G = pd.DataFrame({'Gi':Gseq})
 for i in Bseq:
     df_G[i] = 0
@@ -77,25 +76,25 @@ df_T = pd.DataFrame({'Gi':Gseq})
 for i in Bseq:
     df_T[i] = 0
 
-tim = 1 # Total time over which the simulations will run
-dt = 0.1 # step size of time 
+tim = 1000 # Total time over which the simulations will run
+dt = 0.001 # step size of time 
 timesteps = int(tim/dt) # total no. of timesteps
 
 # Set the value of other traits here: 
-u = 0.1
-v = 0.2
-th = 0.5
+u = 0.1 # sapling death rate
+v = 0.2 # tree death rate
+th = 0.5 # sapling resistance to fire
 
 x = []
 for i in Bseq:
     y = iterations_no_var(i)
     x.append(y)
  
-# Saving values for the simulation to the dataframes
+# Saving output values from the simulation to the dataframes
 for i in range(1,len(Bseq)+1):
     for j in range(0,len(Gseq)):
         df_G.iat[j,i] = x[i-1][j][0]
         df_T.iat[j,i] = x[i-1][j][1]
 
-df_G.to_csv('G_u_'+str(u)+'_v_'+str(u)+'_th_'+str(th)+'_no_var.csv')
-df_T.to_csv('T_u_'+str(u)+'_v_'+str(u)+'_th_'+str(th)+'_no_var.csv')
+df_G.to_csv('G_u_'+str(u)+'_v_'+str(u)+'_th_'+str(th)+'_no_var.csv') #Generates a .csv file with steady-state grass cover
+df_T.to_csv('T_u_'+str(u)+'_v_'+str(u)+'_th_'+str(th)+'_no_var.csv') #Generates a .csv file with steady-state tree cover
