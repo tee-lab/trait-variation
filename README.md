@@ -1,10 +1,38 @@
-# trait-variation
+# Trait Variation in a savanna-woodland bistable system
 
-# trait-variation
-We investigate how trait variations affect the dyanmics of savanna-woodland bistable system. 
+This repository contains codes used to simulate our extension of the savanna-woodland model given by Staver & Levin, 2011, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. The codes are part of the manuscript: ___________
 
-1. To run the model with variation in the following traits: sapling death rate (u, as referred to in the codes), tree death rate (v) and sapling resistance to fire (th), use the file all_dist_trait.py. Users can also set the initial trait distribution and level of variation using this file. This file gives the steady state grass and tree cover for a specific case of trait variation, trait distribution and level of variation for values of sapling birth rate (b) ranging from 0 to 2. Data is generated in the form of 2 .csv files, one for Grass cover and the other for Tree cover. 
-2. Plot the data in these .csv files to obtain the stability diagram and study the ecosystem-level properties. For this, use the plot_bifurcation_diag.R file. This will generate Figure 2 mentioned in the manuscript.
+The repository contains two folders:
+1. [simulations](https://github.com/tee-lab/trait-variation/tree/8aebff27515786bcf7eb8262f35760350e353f1b/simulations) which contains **python code** to numerically simulate the model.
+2. [figures](https://github.com/tee-lab/trait-variation/tree/8aebff27515786bcf7eb8262f35760350e353f1b/figures) which contains **R code** to plot the data obtained from running simulations using the codes in *simulations* folder.
+
+Packages required for each of the codes are mentioned in the files. 
+
+## Ecosystem-level Dynamics
+
+### No variation model
+
+
+### Trait variation model
+To understand the affect of trait variations on the ecosystem-level dynamics of the savanna-woodland model, we use the file [all_dist_trait.py](https://github.com/tee-lab/trait-variation/blob/8aebff27515786bcf7eb8262f35760350e353f1b/simulations/all_dist_trait.py) in the <mark >simulations</mark> folder. In this file, one can select 
+1. the trait is to be varied: sapling death rate ("u", as referred to in the code), tree death rate ("v") or sapling resistance to fire ("th"),
+2. the initial distribution of traits: uniform ("unif", as referred to in the code), unimodal beta ("beta") or bimodal beta distribution ("bimod"), and
+3. the level of variation in the trait: "high" or "low".
+
+After downloading the all_dist_trait.py file, it can either be run directly through the terminal or using an IDE. To run the file directly through the terminal, go to the folder containing the python script, open the terminal and type:
+> python all_dist_trait.py -t (insert trait here) -d (insert distribution here) -v (insert level of variation here)
+For example, you want to run the code for variation in sapling death rate (u), which has a bimodal distribution and high level of variation, the command will be:
+> python all_dist_trait.py -t u -d bimod -v high
+
+To run the file in an IDE (such as Spyder), comment out Code Segment 1, as mentioned in the code, and uncomment Code Segment 2 to set the parameters of your choice.
+
+This python script runs the model with variation in the specified trait for different values of sapling birth rate (denoted by "b") and different initial values of Grass cover.
+This generates two .csv files with the steady-state grass cover and tree cover, respectively.
+
+## Figure 2: Bifurcation Diagram
+To plot the data in these .csv files, we use the R script file [Figure2.R](https://github.com/tee-lab/trait-variation/blob/504ac4bc1de92da170a0100e91266c7a6ceed034/figures/Figure2.R) present in the <mark >figures</mark> folder. This yields a stability/bifurcation diagram and understand the ecosystem-level properties. For this, use the  file. This will generate Figure 2 mentioned in the manuscript.
+
+## Population-level Dynamics
 
 3. To look at the population-level trait distribution at steady state, use indi_prop_all_dist_trait.py. Similar to case 1, users can set the varying trait, initial trait distribution and the level of variation in this file. At a particular value of sapling birth rate (b), this file generates two .csv files with steady state Tree and Sapling cover, respectively corresponding to each trait value present in the population.
 4. Plot the data in these .csv files to obtain the population-level trait distribution at steady state using plot_indi_prop.R. This will generate Figure 3 mentioned in the manuscript.
