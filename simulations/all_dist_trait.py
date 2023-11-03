@@ -151,7 +151,7 @@ def iterations_th(b):
 
 Gseq = np.arange(0,1,0.1) # Initial Grass covers
 Gseq = np.round(Gseq,2)
-Bseq = crange(0,2,0.1) # Values of sapling birth rate (beta)
+Bseq = crange(0,2,0.1) # Values of sapling birth rate 
 Bseq = np.round(Bseq,2)
 
 # Dataframes to save the steady-state values of G and T
@@ -164,18 +164,19 @@ for i in Bseq:
     df_T[i] = 0
 
 ''' Code Segment 2 (CS2)
-Here you can set the values in the code itself'''
+Here you can set the values in the code itself
+To uncomment the code, remove the # at the start of each line of code'''
 
-var_list = ["high","low"] # Levels of variation
-dist_list = ["unif","beta","bimod"] # Distribution of traits
-trait_list = ["u","v","th"] 
+#var_list = ["high","low"] # Levels of variation
+#dist_list = ["unif","beta","bimod"] # Distribution of traits
+#trait_list = ["u","v","th"] 
 '''Trait being varied, u = sapling death rate (mu),
 v = tree death rate (nu), th = sapling resistance to fire (theta)'''
 
-#set the choice of trait to vary, distribution of traits and level of variation
-trait = trait_list[0] # 0 refers to the first entry in the list
-dist = dist_list[0]
-var = var_list[0] 
+'''set the choice of trait to vary, distribution of traits and level of variation'''
+#trait = trait_list[0] # 0 refers to the first entry in the list
+#dist = dist_list[0]
+#var = var_list[0] 
 
 ''' End of CS2 
 Comment or remove this part if using CS1'''
@@ -236,7 +237,7 @@ if trait=="v":
         pool = Pool() 
         start = time.time()
         # We'll run the function iterations_v() over different values of 
-        # sapling birth rate (beta) in parallel using multiprocessing
+        # sapling birth rate in parallel using multiprocessing
         x = pool.map(iterations_v, Bseq) 
         print("Complete")
         end = time.time()
@@ -253,7 +254,7 @@ if trait=="u":
          pool = Pool() 
          start = time.time()
          # We'll run the function iterations_u() over different values of 
-         # sapling birth rate (beta) in parallel using multiprocessing
+         # sapling birth rate in parallel using multiprocessing
          x = pool.map(iterations_u, Bseq)
          print("Complete")
          end = time.time()
@@ -269,7 +270,7 @@ if trait=="th":
          pool = Pool() 
          start = time.time()
          # We'll run the function iterations_th() over different values of 
-         # sapling birth rate (beta) in parallel using multiprocessing
+         # sapling birth rate in parallel using multiprocessing
          x = pool.map(iterations_th, Bseq)
          print("Complete")
          end = time.time()
