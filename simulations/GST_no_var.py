@@ -65,7 +65,7 @@ def iterations_no_var(b):
 
 Gseq = np.arange(0,1,0.1) # Initial Grass covers
 Gseq = np.round(Gseq,2)
-Bseq = crange(0,2,0.1) # Values of sapling birth rate (beta)
+Bseq = crange(0,2,0.1) # Values of sapling birth rate
 Bseq = np.round(Bseq,2)
 
 # Dataframes to save the steady-state values of G and T
