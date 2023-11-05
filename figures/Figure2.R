@@ -10,8 +10,8 @@ data_bif = data.frame('b'=Bseq)
 dataf = data.frame('b'=Bseq)
 
 # First, we'll read the csv file with high var
-d =  read.csv('/home/G_10_types_unif_dist_varying_u_high_var.csv') # If you have set the working directory as the folder containing these .csv files,
-# remove '/home/', otherwise replace the '/home/' with the folder address where the files are saved
+d =  read.csv('G_10_types_unif_dist_varying_u_high_var.csv') # If the file is saved in a folder different from the working directory selected in RStudio,
+# add the location of the file before the file name like: /location-of-the-file/file-name
 d = d[,-1]
 d = t(d)
 d = d[-1,]
@@ -26,7 +26,7 @@ d_main = melt(dataf, id.vars='b')
 d_main$variable = rep('high')
 
 # Second, we'll read the csv file with low var
-d =  read.csv('/home/G_10_types_unif_dist_varying_u_low_var.csv') # Replace the '/home/' with the folder address where the files are saved
+d =  read.csv('G_10_types_unif_dist_varying_u_low_var.csv') # same as above, add the location of the file before the file name: /location-of-the-file/file-name
 d = d[,-1]
 d = t(d)
 d = d[-1,]
@@ -46,7 +46,7 @@ d_main = rbind(d_main, d_temp)
 # For the no variation case, we had used Wolfram Mathematica, 
 # but if you want to simulate that numerically, you can use GST_no_var.py
 # We'll read the csv file with no variation
-d =  read.csv('/home/G_u_0.1_v_0.1_th_0.5_no_var.csv') # Replace the '/home/' with the folder address where the files are saved
+d =  read.csv('G_u_0.1_v_0.1_th_0.5_no_var.csv') 
 d = d[,-1]
 d = t(d)
 d = d[-1,]
