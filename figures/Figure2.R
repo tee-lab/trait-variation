@@ -10,7 +10,8 @@ data_bif = data.frame('b'=Bseq)
 dataf = data.frame('b'=Bseq)
 
 # First, we'll read the csv file with high var
-d =  read.csv('/home/G_10_types_unif_dist_varying_u_high_var.csv') # Replace the '/home/' with the folder address where the files are saved
+d =  read.csv('/home/G_10_types_unif_dist_varying_u_high_var.csv') # If you have set the working directory as the folder containing these .csv files,
+# remove '/home/', otherwise replace the '/home/' with the folder address where the files are saved
 d = d[,-1]
 d = t(d)
 d = d[-1,]
