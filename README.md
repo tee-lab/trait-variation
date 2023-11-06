@@ -57,4 +57,4 @@ To see how grass, tree and sapling covers change with time for different initial
 
 Plot the data in the .csv file obtained from TimeSeries_all_dist_trait.py using the R script [Figure4.R](https://github.com/tee-lab/trait-variation/blob/a8c5d451990c6ef6574ca172dc08f14fed9f0b8a/figures/Figure4.R) in the *figures* folder. This generates Figure 4 mentioned in the manuscript.
 
-7. To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.
+(To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.)
