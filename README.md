@@ -18,7 +18,7 @@ To simulate the savanna-woodland model with no variation, use the file [GST_no_v
 3. Type `python GST_no_var.py` in the terminal and press Enter.
 
 This would generate two .csv files with the steady-state grass cover and tree cover, respectively.
-Check the section [Figure 2: Bifurcation Diagram](#figure-2:-bifurcation-diagram) for instructions on how to plot the bifurcation diagram for this case.
+Check the section [Figure 2: Bifurcation Diagram](#figure-2\:-bifurcation-diagram) for instructions on how to plot the bifurcation diagram for this case.
 
 ### Trait variation model
 
