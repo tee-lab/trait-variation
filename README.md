@@ -1,6 +1,6 @@
 # Trait Variation in a savanna-woodland bistable system
 
-This repository contains codes used to simulate our extension of the savanna-woodland model given by Staver & Levin, 2011, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. The codes are part of the manuscript: ___________
+This repository contains codes used to simulate our extension of the savanna-woodland model given by Staver & Levin, 2011, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. The codes are part of the manuscript: "Higher individual variation in savanna trees may reduce bistability in favour of woodlands", authored by Tanveen Randhawa and Vishwesha Guttal.
 
 The repository contains two folders:
 1. [simulations](https://github.com/tee-lab/trait-variation/tree/8aebff27515786bcf7eb8262f35760350e353f1b/simulations) which contains **python code** to numerically simulate the model.
@@ -57,4 +57,4 @@ To see how grass, tree and sapling covers change with time for different initial
 
 Plot the data in the .csv file obtained from TimeSeries_all_dist_trait.py using the R script [Figure4.R](https://github.com/tee-lab/trait-variation/blob/a8c5d451990c6ef6574ca172dc08f14fed9f0b8a/figures/Figure4.R) in the *figures* folder. This generates Figure 4 mentioned in the manuscript.
 
-(To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.)
+<!-- (To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.)--!>
