@@ -1,6 +1,6 @@
 # Trait Variation in a savanna-woodland bistable system
 
-#Citation
+# Citation
 Tanveen Kaur Randhawa and Vishwesha Guttal, 2024, Higher individual variation in savanna trees may reduce bistability in favour of woodlands, Manuscript in Submitted. 
 
 #
@@ -61,4 +61,9 @@ To see how grass, tree and sapling covers change with time for different initial
 
 Plot the data in the .csv file obtained from TimeSeries_all_dist_trait.py using the R script [Figure4.R](https://github.com/tee-lab/trait-variation/blob/a8c5d451990c6ef6574ca172dc08f14fed9f0b8a/figures/Figure4.R) in the *figures* folder. This generates Figure 4 mentioned in the manuscript.
 
+# Citation
+
+Tanveen Kaur Randhawa and Vishwesha Guttal, 2024, Higher individual variation in savanna trees may reduce bistability in favour of woodlands, Manuscript in Submitted. 
+
 <!-- (To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.)--!>
+
