@@ -1,6 +1,10 @@
 # Trait Variation in a savanna-woodland bistable system
 
-This repository contains codes used to simulate our extension of the savanna-woodland model given by Staver & Levin, 2011, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. The codes are part of the manuscript: "Higher individual variation in savanna trees may reduce bistability in favour of woodlands".
+#Citation
+Tanveen Kaur Randhawa and Vishwesha Guttal, 2024, Higher individual variation in savanna trees may reduce bistability in favour of woodlands, Manuscript in Submitted. 
+
+#
+This repository contains codes used for the manuscript citation above. More specifically, codes simulate our extension of the savanna-woodland model given by Staver & Levin, 2011, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. The codes are part of the manuscript: "Higher individual variation in savanna trees may reduce bistability in favour of woodlands".
 
 The repository contains two folders:
 1. [simulations](https://github.com/tee-lab/trait-variation/tree/8aebff27515786bcf7eb8262f35760350e353f1b/simulations) which contains **python code** to numerically simulate the model.
