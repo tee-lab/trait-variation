@@ -4,13 +4,13 @@
 Tanveen Kaur Randhawa, Dharanish Rajendra, Swastik Patnaik and Vishwesha Guttal, 2024, Higher trait diversity in savanna tree species may reduce bistability in favour of woodlands, Manuscript in Revision. 
 
 #
-This repository contains codes used for the manuscript citation above. More specifically, codes simulate our extension of the savanna-woodland model given by Staver & Levin, 2012, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. The codes are part of the manuscript: "Higher trait diversity in savanna tree species may reduce bistability in favour of woodlands".
+This repository contains codes used for the manuscript citation above. More specifically, codes simulate our extension of the savanna-woodland model given by Staver & Levin, 2012, to include trait variations. We investigate how trait variations affect the dyanmics of this bistable system. 
 
 The repository contains 4 folders:
 1. **No variation model**
 2. **Deterministic discrete** trait variation model
 3. **Stochastic continuous** trait variation model
-4. Deterministic discrete trait variation **model with forest trees**
+4. **Model with forest trees** (Deterministic discrete trait variation model)
 
 Packages required for each of the codes are mentioned in the files. 
 
@@ -68,7 +68,7 @@ Plot the data in the .csv file obtained from TimeSeries_all_dist_trait.py using 
 
 ## Stochastic continuous trait variation model
 
-## Deterministic discrete trait variation model with forest trees
+## Model with forest trees
 
 
 # References
