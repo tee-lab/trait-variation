@@ -74,7 +74,7 @@ Plot the data in the .csv file obtained from TimeSeries_all_dist_trait.py using 
 # References
 Staver, A. C., & Levin, S. A. (2012). Integrating theoretical climate and fire effects on savanna and forest systems. The American Naturalist, 180(2), 211-224.
 
-Tanveen Kaur Randhawa and Vishwesha Guttal, 2024, Higher individual variation in savanna trees may reduce bistability in favour of woodlands, Manuscript in Submitted. 
+Tanveen Kaur Randhawa, Dharanish Rajendra, Swastik Patnaik and Vishwesha Guttal, 2024, Higher trait diversity in savanna tree species may reduce bistability in favour of woodlands, Manuscript in Revision. 
 
 <!-- (To run the model for 100 or 1000 sapling or tree types, use the file [INSERT FILE NAME]. This generates Figure S1 in Supplementary Information.)--!>
 
