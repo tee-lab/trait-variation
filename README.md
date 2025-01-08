@@ -69,6 +69,7 @@ Plot the data in the .csv file obtained from TimeSeries_all_dist_trait.py using 
 ## Stochastic continuous trait variation model
 
 ## Model with forest trees
+Trying to incorporate trait variation in the model including another vegetation type, forest trees and looking at the resulting dynamics:
 1. Generate data using alldist_trait_f.py. This will output two CSV files with steady state grass cover and forest tree population. Like before, trait, distribution and level of variation can be changed in the code itself.
 2. In Figure2.R you can plot this data to get the bifurcation diagram.
 3. For steady state trait distribution of types use indiprop_with_F.py
